@@ -61,10 +61,23 @@ def create_schema():
 
 def fill():
     print('Completemos esta tablita!')
+
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+
     # Llenar la tabla de la secundaria con al munos 2 tutores
     # Cada tutor tiene los campos:
     # id --> este campo es auto incremental por lo que no deberá completarlo
     # name --> El nombre del tutor (puede ser solo nombre sin apellido)
+
+    tutor_1 = Tutor(name= 'Ricardo')
+    tutor_2 = Tutor(name= 'Jose')
+
+    session.add(tutor_1)
+    session.add(tutor_2)
+
+    session.commit()    
 
     # Llenar la tabla de la secundaria con al menos 5 estudiantes
     # Cada estudiante tiene los posibles campos:
@@ -74,20 +87,48 @@ def fill():
     # grade --> en que año de la secundaria se encuentra (1-6)
     # tutor --> el tutor de ese estudiante (el objeto creado antes)
 
+    estudiante_1 = Estudiante(name='Emmanuel', age='39', grade=6, tutor=tutor_1)
+    estudiante_2 = Estudiante(name='Fernando', age='22', grade=6, tutor=tutor_1)
+    estudiante_3 = Estudiante(name='Cristian', age='29', grade=2, tutor=tutor_2)
+    estudiante_4 = Estudiante(name='Facundo', age='28', grade=2, tutor=tutor_1)
+    estudiante_5 = Estudiante(name='Marcelo', age='30', grade=3, tutor=tutor_2)
+
+    session.add(estudiante_1)
+    session.add(estudiante_2)
+    session.add(estudiante_3)
+    session.add(estudiante_4)
+    session.add(estudiante_5)
+
+    session.commit()
+
     # No olvidarse que antes de poder crear un estudiante debe haberse
     # primero creado el tutor.
 
 
 def fetch():
     print('Comprovemos su contenido, ¿qué hay en la tabla?')
+
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
     # Crear una query para imprimir en pantalla
     # todos los objetos creaods de la tabla estudiante.
+    
+    query = session.query(Estudiante)
+           
     # Imprimir en pantalla cada objeto que traiga la query
     # Realizar un bucle para imprimir de una fila a la vez
+
+    for querys in query:
+        print(querys)
 
 
 def search_by_tutor(tutor):
     print('Operación búsqueda!')
+
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
     # Esta función recibe como parámetro el nombre de un posible tutor.
     # Crear una query para imprimir en pantalla
     # aquellos estudiantes que tengan asignado dicho tutor.
@@ -95,10 +136,22 @@ def search_by_tutor(tutor):
     # Para poder realizar esta query debe usar join, ya que
     # deberá crear la query para la tabla estudiante pero
     # buscar por la propiedad de tutor.name
+ 
+    query = session.query(Estudiante).join(Estudiante.tutor).filter(Tutor.name == tutor)
+
+    for estudiante in query:
+        print('Los siguientes estudiantes cursan con el tutor buscado')
+        print(estudiante)
+    
+    
 
 
 def modify(id, name):
     print('Modificando la tabla')
+
+    Session = sessionmaker(bind=engine) 
+    session = Session()
+
     # Deberá actualizar el tutor de un estudiante, cambiarlo para eso debe
     # 1) buscar con una query el tutor por "tutor.name" usando name
     # pasado como parámetro y obtener el objeto del tutor
@@ -109,6 +162,12 @@ def modify(id, name):
 
     # TIP: En clase se hizo lo mismo para las nacionalidades con
     # en la función update_persona_nationality
+
+    query = session.query(Tutor).filter(Tutor.name == name)
+
+    print(q_tutor)
+
+    q_estudiante = session.query(Estudiante).filter(Estudiante.id == id)
 
 
 def count_grade(grade):
@@ -124,15 +183,15 @@ def count_grade(grade):
 if __name__ == '__main__':
     print("Bienvenidos a otra clase de Inove con Python")
     create_schema()   # create and reset database (DB)
-    # fill()
-    # fetch()
+    fill()
+    fetch()
 
-    tutor = 'nombre_tutor'
-    # search_by_tutor(tutor)
+    tutor = 'Jose'
+    search_by_tutor(tutor)
 
     nuevo_tutor = 'nombre_tutor'
     id = 2
-    # modify(id, nuevo_tutor)
+    modify(id, nuevo_tutor)
 
     grade = 2
     # count_grade(grade)
