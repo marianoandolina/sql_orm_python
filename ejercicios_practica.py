@@ -139,8 +139,10 @@ def search_by_tutor(tutor):
  
     query = session.query(Estudiante).join(Estudiante.tutor).filter(Tutor.name == tutor)
 
+    print('Los siguientes estudiantes cursan con el tutor buscado')
+
     for estudiante in query:
-        print('Los siguientes estudiantes cursan con el tutor buscado')
+        
         print(estudiante)
     
     
@@ -164,10 +166,24 @@ def modify(id, name):
     # en la función update_persona_nationality
 
     query = session.query(Tutor).filter(Tutor.name == name)
+    tutor = query.first()
+    print(tutor)
+    
+    
 
-    print(q_tutor)
+    query = session.query(Estudiante).filter(Estudiante.id == id)
+    estudiante = query.first()
+    
+    estudiante.tutor = tutor
 
-    q_estudiante = session.query(Estudiante).filter(Estudiante.id == id)
+    session.add(estudiante)
+    session.commit()
+
+    print(f'El estudiante {estudiante} fue actualizado.')
+
+
+    
+
 
 
 def count_grade(grade):
@@ -179,6 +195,13 @@ def count_grade(grade):
     # TIP: En clase se hizo lo mismo para las nacionalidades con
     # en la función count_persona
 
+    Session = sessionmaker(bind=engine) 
+    session = Session()
+
+    result = session.query(Estudiante).filter(Estudiante.grade == grade).count()
+    #cuenta = result.first()
+
+    print(f'Personas de {grade} grado encontradas: {result}')
 
 if __name__ == '__main__':
     print("Bienvenidos a otra clase de Inove con Python")
@@ -189,9 +212,9 @@ if __name__ == '__main__':
     tutor = 'Jose'
     search_by_tutor(tutor)
 
-    nuevo_tutor = 'nombre_tutor'
+    nuevo_tutor = 'Ricardo'
     id = 2
     modify(id, nuevo_tutor)
 
     grade = 2
-    # count_grade(grade)
+    count_grade(grade)
