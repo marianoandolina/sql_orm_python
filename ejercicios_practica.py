@@ -35,7 +35,6 @@ class Tutor(base):
     def __repr__(self):
         return f"Tutor: {self.name}"
 
-
 class Estudiante(base):
     __tablename__ = "estudiante"
     id = Column(Integer, primary_key=True)
@@ -49,7 +48,6 @@ class Estudiante(base):
     def __repr__(self):
         return f"Estudiante: {self.name}, edad {self.age}, grado {self.grade}, tutor {self.tutor.name}"
 
-
 def create_schema():
     # Borrar todos las tablas existentes en la base de datos
     # Esta linea puede comentarse sino se eliminar los datos
@@ -57,7 +55,6 @@ def create_schema():
 
     # Crear las tablas
     base.metadata.create_all(engine)
-
 
 def fill():
     print('Completemos esta tablita!')
@@ -104,7 +101,6 @@ def fill():
     # No olvidarse que antes de poder crear un estudiante debe haberse
     # primero creado el tutor.
 
-
 def fetch():
     print('Comprovemos su contenido, ¿qué hay en la tabla?')
 
@@ -121,7 +117,6 @@ def fetch():
 
     for querys in query:
         print(querys)
-
 
 def search_by_tutor(tutor):
     print('Operación búsqueda!')
@@ -144,9 +139,6 @@ def search_by_tutor(tutor):
     for estudiante in query:
         
         print(estudiante)
-    
-    
-
 
 def modify(id, name):
     print('Modificando la tabla')
@@ -180,11 +172,6 @@ def modify(id, name):
     session.commit()
 
     print(f'El estudiante {estudiante} fue actualizado.')
-
-
-    
-
-
 
 def count_grade(grade):
     print('Estudiante por grado')
