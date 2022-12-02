@@ -90,12 +90,7 @@ def fill():
     estudiante_4 = Estudiante(name='Facundo', age='28', grade=2, tutor=tutor_1)
     estudiante_5 = Estudiante(name='Marcelo', age='30', grade=3, tutor=tutor_2)
 
-    session.add(estudiante_1)
-    session.add(estudiante_2)
-    session.add(estudiante_3)
-    session.add(estudiante_4)
-    session.add(estudiante_5)
-
+    session.add_all(estudiante_1, estudiante_2, estudiante_3, estudiante_4, estudiante_5)
     session.commit()
 
     # No olvidarse que antes de poder crear un estudiante debe haberse
