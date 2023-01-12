@@ -36,13 +36,14 @@ script_path = os.path.dirname(os.path.realpath(__file__))
 config_path_name = os.path.join(script_path, 'config.ini')
 dataset = config('dataset', config_path_name)
 
+# Crea la base de datos como clase (class)
 
 class Nacionalidad(base):
-    __tablename__ = "nacionalidad"
-    id = Column(Integer, primary_key=True)
-    country = Column(String)
+    __tablename__ = "nacionalidad"         # Nombre de la base de datos.
+    id = Column(Integer, primary_key=True) # Columna id, es un entero.
+    country = Column(String)               # Columna country, es un string.
     
-    def __repr__(self):
+    def __repr__(self):                           # Metodo Self retorna la nacionaldidad.  
         return f"Nacionalidad: {self.country}"
 
 

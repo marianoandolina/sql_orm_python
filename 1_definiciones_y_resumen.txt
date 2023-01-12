@@ -1,0 +1,14 @@
+SQL ALCHEMY =   Es una ORM de Python. Guuarda datos en una base de datos de manera estructurada o tubular.
+
+ATRIBUTOS SIMPLES = Son las celdas de las bases de datos que no estan relacionadas.            
+
+BASE DE DATOS RELACIONADA = Es la base de datos donde al menos una de sus columnas esta relacionada a otra 
+base de datos mediante una clave foranea o foreing key.
+
+BASE DE DATOS SIMPLE = Es la base de datos que no tiene relacion con otra.
+
+***** REPASO EL DIA 11/01/2023 *****
+Detencion del video: 1:02:41
+
+***** REPASO EL DIA 12/1/2023 *****
+Detencion del video: 1:10:40
