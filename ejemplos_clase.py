@@ -46,15 +46,16 @@ class Nacionalidad(base):
     def __repr__(self):                           # Metodo Self retorna la nacionaldidad.  
         return f"Nacionalidad: {self.country}"
 
+# Crea la base de datos como clase (class)
 
 class Persona(base):
-    __tablename__ = "persona"
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    age = Column(Integer)
-    nacionalidad_id = Column(Integer, ForeignKey("nacionalidad.id"))
+    __tablename__ = "persona" # Nombre de la tabla
+    id = Column(Integer, primary_key=True) # Columna Id
+    name = Column(String)                   # Columna name  es un string
+    age = Column(Integer)                   # Columna age es un numero entero
+    nacionalidad_id = Column(Integer, ForeignKey("nacionalidad.id")) # La columna nacionalidad_id es un clave foranea significa que este dato esta en otra tabla
 
-    nacionalidad = relationship("Nacionalidad")
+    nacionalidad = relationship("Nacionalidad") 
 
     def __repr__(self):
         return f"Persona:{self.name} con nacionalidad {self.nacionalidad.country}"
